@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_cms_page_edit>
+        <reference name="cms_page_edit_tabs">
+            <block type="version/adminhtml_cms_page_edit_tab_version" name="cms_page_edit_tab_version" />
+            <action method="addTab"><name>version_section</name><block>cms_page_edit_tab_version</block></action>
+        </reference>
+    </adminhtml_cms_page_edit>
+</layout>
