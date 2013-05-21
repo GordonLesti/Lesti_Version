@@ -12,12 +12,17 @@ class Lesti_Version_Block_Adminhtml_Cms_Page_Edit_Tab_Version
 {
     protected $_users = array();
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     protected function _prepareForm()
     {
 
         $form = new Varien_Data_Form();
 
-        $form->setHtmlIdPrefix('page_');
+        $form->setHtmlIdPrefix('version_page_');
 
         $model = Mage::registry('cms_page');
 
@@ -26,13 +31,44 @@ class Lesti_Version_Block_Adminhtml_Cms_Page_Edit_Tab_Version
             'class'  => 'fieldset-wide'
         ));
 
-        foreach($this->_getVersionCollection() as $version) {
-            $layoutFieldset->addField('version_'.$version->getId(), 'link', array(
+        $layoutFieldset->addType('version', 'Lesti_Version_Block_Adminhtml_Data_Form_Element_Version');
+        $layoutFieldset->addType('version_editor', 'Lesti_Version_Block_Adminhtml_Data_Form_Element_Version_Editor');
+        $layoutFieldset->addType('version_ajax', 'Lesti_Version_Block_Adminhtml_Data_Form_Element_Version_Ajax');
+
+        $collection = $this->_getVersionCollection();
+        $diff = array('', '');
+        $old = 0;
+        $new = 0;
+        $firstItem = $collection->getFirstItem();
+        if(isset($firstItem)) {
+            $content = $firstItem->getContent();
+            $diff = Mage::helper('version')->renderDiff($content, $content);
+            $old = $firstItem->getVersionId();
+            $new = $firstItem->getVersionId();
+        }
+        $layoutFieldset->addField('version_editor', 'version_editor', array(
+            'name'     => 'version_editor',
+            'label'    => '',
+            'diff'     => $diff
+        ));
+
+        $layoutFieldset->addField('version_ajax', 'version_ajax', array(
+            'name'     => 'version_ajax',
+            'label'    => '',
+            'old'      => $old,
+            'new'      => $new
+        ));
+
+        $i = 0;
+        foreach($collection as $version) {
+            $checked = $i == 0;
+            $layoutFieldset->addField('version_'.$version->getId(), 'version', array(
                 'name'     => 'version_'.$version->getId(),
                 'label'    => $this->_getAdminUser($version->getUserId())->getUsername(),
-                'value'    => $version->getCreationTime(),
-                'href'     => Mage::getUrl('adminhtml/version_cms_page/view', array('version_id' => $version->getId()))
+                'version'  => $version,
+                'checked'  => $checked
             ));
+            $i++;
         }
 
         Mage::dispatchEvent('adminhtml_cms_page_edit_tab_design_prepare_form', array('form' => $form));
@@ -96,7 +132,8 @@ class Lesti_Version_Block_Adminhtml_Cms_Page_Edit_Tab_Version
         /** @var $model Mage_Cms_Model_Page */
         $model = Mage::registry('cms_page');
         $collection = Mage::getModel('version/cms_page')->getCollection()
-            ->addFieldToFilter('parent_id', array('eq' => $model->getId()));
+            ->addFieldToFilter('parent_id', array('eq' => $model->getId()))
+            ->setOrder('creation_time', 'desc');
         return $collection;
     }
 }

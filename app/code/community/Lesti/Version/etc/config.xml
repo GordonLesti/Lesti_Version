@@ -38,6 +38,17 @@
             </version_setup>
         </resources>
     </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <version before="Mage_Admin">Lesti_Version_Adminhtml</version>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
     <adminhtml>
         <events>
             <cms_page_save_commit_after>

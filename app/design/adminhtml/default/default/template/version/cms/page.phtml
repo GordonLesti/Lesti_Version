@@ -1,0 +1,55 @@
+<?php
+/**
+ * Created by JetBrains PhpStorm.
+ * User: gordon
+ * Date: 20.05.13
+ * Time: 13:30
+ * To change this template use File | Settings | File Templates.
+ */
+?>
+<script type="text/javascript">
+    var oldVersion = <?php echo $this->getOld() ?>;
+    var newVersion = <?php echo $this->getNew() ?>;
+    var Versions = Class.create({
+        initialize: function() {
+            $$('input.version_radio').each(
+              function(link) {
+                  Event.observe(link, 'click', this.request.bindAsEventListener(this, link));
+              }.bind(this)
+            );
+        },
+
+        request: function(event, link) {
+            var objectId = link.id;
+            if(objectId.substring(0,12) == 'old_version_') {
+                oldVersion = objectId.substring(12);
+            }
+            if(objectId.substring(0,12) == 'new_version_') {
+                newVersion = objectId.substring(12);
+            }
+            url = "<?php echo $this->getUrl('adminhtml/version_cms_page/ajax')?>";
+            url += "old/"+oldVersion+"/new/"+newVersion+"/";
+            new Ajax.Request(url, {
+                method: 'get',
+                onSuccess: function(transport) {
+                    if(transport && transport.responseText) {
+                        try{
+                            response = eval('('+transport.responseText+')');
+                        }
+                        catch (e) {
+                            response = {};
+                        }
+                        if(response.old && response.new) {
+                            $('version_edit_old').update(response.old);
+                            $('version_edit_new').update(response.new);
+                        }
+                    }
+                }.bind(this)}
+            );
+        }
+    });
+
+    Event.observe(window, 'load', function() {
+       versions = new Versions();
+    });
+</script>

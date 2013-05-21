@@ -30,14 +30,14 @@ class Lesti_Version_Model_Cms_Page extends Mage_Core_Model_Abstract
     public function createVersion(Mage_Cms_Model_Page $page)
     {
         $data = $page->getData();
-        $data['parent_id'] = $data['page_id'];
-        unset($data['page_id']);
-        $data['creation_time'] = $data['update_time'];
-        unset($data['update_time']);
-        unset($data['is_active']);
-        $data['user_id'] = Mage::getSingleton('admin/session')->getUser()->getId();
-        $this->setData($data);
+        $versionData = array();
+        $versionData['content'] = $data['content'];
+        $versionData['parent_id'] = $data['page_id'];
+        $versionData['creation_time'] = $data['update_time'];
+        $versionData['user_id'] = Mage::getSingleton('admin/session')->getUser()->getId();
+        $this->setData($versionData);
         $this->save();
         return $this;
     }
+
 }
