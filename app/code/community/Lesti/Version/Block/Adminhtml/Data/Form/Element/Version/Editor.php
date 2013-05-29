@@ -24,10 +24,8 @@ class Lesti_Version_Block_Adminhtml_Data_Form_Element_Version_Editor extends Var
     public function getElementHtml()
     {
         $html = $this->getBeforeElementHtml();
-        $html .= '<table id="version_edit" style="width:100%;">';
-        $html .= '<tr><td><b>Older Version</b></td><td><b>Newer Version</b></td></tr>';
-        $diff = $this->getDiff();
-        $html .= '<tr><td id="version_edit_old">'.$diff[0].'</td><td id="version_edit_new">'.$diff[1].'</td></tr>';
+        $html .= '<table id="version_table" style="width:100%;">';
+        $html .= $this->getDiff();
         $html .= '</table>';
         $html .= $this->getAfterElementHtml();
         return $html;

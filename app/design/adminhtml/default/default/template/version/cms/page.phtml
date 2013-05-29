@@ -63,9 +63,8 @@
                         catch (e) {
                             response = {};
                         }
-                        if(response.old && response.new) {
-                            $('version_edit_old').update(response.old);
-                            $('version_edit_new').update(response.new);
+                        if(response.table) {
+                            $('version_table').update(response.table);
                         }
                     }
                 }.bind(this)}

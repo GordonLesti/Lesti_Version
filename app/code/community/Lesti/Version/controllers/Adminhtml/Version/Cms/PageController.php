@@ -18,8 +18,7 @@ class Lesti_Version_Adminhtml_Version_Cms_PageController extends Mage_Adminhtml_
             $new = Mage::getModel('version/cms_page')->load($new);
             $diff = Mage::helper('version')->renderDiff($old->getContent(), $new->getContent());
             $result = array();
-            $result['old'] = $diff[0];
-            $result['new'] = $diff[1];
+            $result['table'] = $diff;
             $this->getResponse()->setBody(Zend_Json::encode($result));
         }
     }

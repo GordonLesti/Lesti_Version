@@ -31,56 +31,45 @@ class Lesti_Version_Helper_Data extends Mage_Core_Helper_Abstract
         $content1 = '';
         $content2 = '';
         $diff = $this->diff($array1, $array2);
-        $diffCounter = 0;
-        $diffBlock = false;
-        $tempDiff1 = '';
-        $tempDiff2 = '';
+        $html = '<tr><td>'.$this->__('Old Version').'</td><td>'.$this->__('New Verison').'</td></tr>';
+        $tempDiff1 = array();
+        $tempDiff2 = array();
         for($i = 0; $i < count($diff[0]); $i++) {
             $line1 = $diff[0][$i];
             $line2 = $diff[1][$i];
             if($line1 !== $line2) {
                 if($line1 !== false) {
-                    $tempDiff1 .= $hash[$line1] ."<br/>";
-                    $diffCounter++;
+                    $tempDiff1[] = $line1;
                 }
                 if($line2 !== false) {
-                    $tempDiff2 .= $hash[$line2] ."<br/>";
-                    $diffCounter--;
+                    $tempDiff2[] = $line2;
                 }
-                $diffBlock = true;
             } else {
-                if($diffBlock) {
-                    $diffColor1 = $tempDiff1;
-                    $diffColor2 = $tempDiff2;
-                    if($diffCounter <= 0) {
-                        while($diffCounter <= 0) {
-                            $tempDiff1 .= '<br/>';
-                            $diffCounter++;
+                if(count($tempDiff1) || count($tempDiff2)) {
+                    for($j = 0; $j < max(count($tempDiff1), count($tempDiff2)); $j++) {
+                        $html .= '<tr>';
+                        if(isset($tempDiff1[$j])) {
+                            $html .= '<td style="background-color: lightpink;">'.$hash[$tempDiff1[$j]].'</td>';
+                        } else {
+                            $html .= '<td></td>';
                         }
-                    } else {
-                        while($diffCounter >= 0) {
-                            $tempDiff2 .= '<br/>';
-                            $diffCounter--;
+                        if(isset($tempDiff2[$j])) {
+                            $html .= '<td style="background-color: lightgreen;">'.$hash[$tempDiff2[$j]].'</td>';
+                        } else {
+                            $html .= '<td></td>';
                         }
+                        $html .= '</tr>';
                     }
-                    if($diffColor1)
-                        $content1 .= self::RED_PLACEHOLDER_BEGIN .substr($tempDiff1, 0, -5).self::RED_PLACEHOLDER_END;
-                    else
-                        $content1 .= substr($tempDiff1, 0, -5);
-                    if($diffColor2)
-                        $content2 .= self::GREEN_PLACEHOLDER_BEGIN .substr($tempDiff2, 0, -5). self::GREEN_PLACEHOLDER_END;
-                    else
-                        $content2 .= substr($tempDiff2, 0, -5);
-                    $tempDiff1 = '';
-                    $tempDiff2 = '';
-                    $diffBlock = false;
-                    $diffCounter = 0;
+                    $tempDiff1 = array();
+                    $tempDiff2 = array();
                 }
-                $content1 .= $hash[$line1]."<br/>";
-                $content2 .= $hash[$line2]."<br/>";
+                $html .= '<tr>';
+                $html .= '<td>'.$hash[$line1].'</td>';
+                $html .= '<td>'.$hash[$line2].'</td>';
+                $html .= '</tr>';
             }
         }
-        return array($content1, $content2);
+        return $html;
     }
 
     private function diff(array $array1, array $array2)
