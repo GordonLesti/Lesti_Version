@@ -2,14 +2,14 @@
 /**
  * Created by JetBrains PhpStorm.
  * User: gordon
- * Date: 20.05.13
- * Time: 14:09
+ * Date: 01.06.13
+ * Time: 22:46
  * To change this template use File | Settings | File Templates.
  */
-class Lesti_Version_Adminhtml_Version_Cms_PageController extends Mage_Adminhtml_Controller_Action
+class Lesti_Version_Adminhtml_Version_DiffController extends Mage_Adminhtml_Controller_Action
 {
 
-    public function ajaxAction()
+    public function cmspageAction()
     {
         if(Mage::app()->getRequest()->isAjax()) {
             $old = (int) Mage::app()->getRequest()->getParam('old');
