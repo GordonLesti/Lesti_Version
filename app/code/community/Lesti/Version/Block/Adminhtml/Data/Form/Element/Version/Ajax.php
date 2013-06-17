@@ -12,7 +12,7 @@ class Lesti_Version_Block_Adminhtml_Data_Form_Element_Version_Ajax extends Mage_
     public function __construct($attributes=array())
     {
         parent::__construct($attributes);
-        $this->setTemplate('version/cms/page.phtml');
+        $this->setTemplate('version/'.$attributes['version_type'].'.phtml');
     }
 
 }

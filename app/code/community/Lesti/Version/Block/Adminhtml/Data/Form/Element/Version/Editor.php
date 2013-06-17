@@ -13,7 +13,7 @@ class Lesti_Version_Block_Adminhtml_Data_Form_Element_Version_Editor extends Var
     {
         parent::__construct($attributes);
         $this->setType('version_editor');
-        $this->setTemplate('version/cms/page.phtml');
+        $this->setTemplate('version/'.$attributes['version_type'].'.phtml');
     }
 
     /**

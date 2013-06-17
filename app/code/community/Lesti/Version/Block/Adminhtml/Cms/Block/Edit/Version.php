@@ -2,13 +2,11 @@
 /**
  * Created by JetBrains PhpStorm.
  * User: gordon
- * Date: 19.05.13
- * Time: 22:02
+ * Date: 17.06.13
+ * Time: 21:42
  * To change this template use File | Settings | File Templates.
  */
-class Lesti_Version_Block_Adminhtml_Cms_Page_Edit_Tab_Version
-    extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Lesti_Version_Block_Adminhtml_Cms_Block_Edit_Version extends Mage_Adminhtml_Block_Widget_Form
 {
     protected $_users = array();
 
@@ -22,12 +20,12 @@ class Lesti_Version_Block_Adminhtml_Cms_Page_Edit_Tab_Version
 
         $form = new Varien_Data_Form();
 
-        $form->setHtmlIdPrefix('version_page_');
+        $form->setHtmlIdPrefix('version_block_');
 
-        $model = Mage::registry('cms_page');
+        $model = Mage::registry('cms_block');
 
         $layoutFieldset = $form->addFieldset('layout_fieldset', array(
-            'legend' => Mage::helper('cms')->__('Page Versions'),
+            'legend' => Mage::helper('cms')->__('Block Versions'),
             'class'  => 'fieldset-wide'
         ));
 
@@ -50,7 +48,7 @@ class Lesti_Version_Block_Adminhtml_Cms_Page_Edit_Tab_Version
             'name'     => 'version_editor',
             'label'    => '',
             'diff'     => $diff,
-            'version_type' => 'cms/page'
+            'version_type' => 'cms/block'
         ));
 
         $layoutFieldset->addField('version_ajax', 'version_ajax', array(
@@ -58,7 +56,7 @@ class Lesti_Version_Block_Adminhtml_Cms_Page_Edit_Tab_Version
             'label'    => '',
             'old'      => $old,
             'new'      => $new,
-            'version_type' => 'cms/page'
+            'version_type' => 'cms/block'
         ));
 
         $i = 0;
@@ -69,16 +67,26 @@ class Lesti_Version_Block_Adminhtml_Cms_Page_Edit_Tab_Version
                 'label'    => $this->_getAdminUser($version->getUserId())->getUsername(),
                 'version'  => $version,
                 'checked'  => $checked,
-                'version_type' => 'cmspage'
+                'version_type' => 'cmsblock'
             ));
             $i++;
         }
 
-        Mage::dispatchEvent('adminhtml_cms_page_edit_tab_design_prepare_form', array('form' => $form));
+        Mage::dispatchEvent('adminhtml_cms_block_edit_design_prepare_form', array('form' => $form));
 
         $this->setForm($form);
 
         return parent::_prepareForm();
+    }
+
+    protected function _getVersionCollection()
+    {
+        /** @var $model Mage_Cms_Model_Block */
+        $model = Mage::registry('cms_block');
+        $collection = Mage::getModel('version/cms_block')->getCollection()
+            ->addFieldToFilter('parent_id', array('eq' => $model->getId()))
+            ->setOrder('creation_time', 'desc');
+        return $collection;
     }
 
     protected function _getAdminUser($userId)
@@ -90,53 +98,4 @@ class Lesti_Version_Block_Adminhtml_Cms_Page_Edit_Tab_Version
         return $this->_users[$userId];
     }
 
-    /**
-     * Prepare label for tab
-     *
-     * @return string
-     */
-    public function getTabLabel()
-    {
-        return Mage::helper('version')->__('Page Versions');
-    }
-
-    /**
-     * Prepare title for tab
-     *
-     * @return string
-     */
-    public function getTabTitle()
-    {
-        return Mage::helper('version')->__('Page Versions');
-    }
-
-    /**
-     * Returns status flag about this tab can be shown or not
-     *
-     * @return true
-     */
-    public function canShowTab()
-    {
-        return true;
-    }
-
-    /**
-     * Returns status flag about this tab hidden or not
-     *
-     * @return true
-     */
-    public function isHidden()
-    {
-        return false;
-    }
-
-    protected function _getVersionCollection()
-    {
-        /** @var $model Mage_Cms_Model_Page */
-        $model = Mage::registry('cms_page');
-        $collection = Mage::getModel('version/cms_page')->getCollection()
-            ->addFieldToFilter('parent_id', array('eq' => $model->getId()))
-            ->setOrder('creation_time', 'desc');
-        return $collection;
-    }
 }

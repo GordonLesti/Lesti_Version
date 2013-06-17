@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Lesti_Version>
-            <version>0.1.0</version>
+            <version>0.1.1</version>
         </Lesti_Version>
     </modules>
     <global>
@@ -27,6 +27,9 @@
                     <cms_page>
                         <table>version_cms_page</table>
                     </cms_page>
+                    <cms_block>
+                        <table>version_cms_block</table>
+                    </cms_block>
                 </entities>
             </version_resource>
         </models>
@@ -59,6 +62,14 @@
                     </version_cms_page_save_commit_after>
                 </observers>
             </cms_page_save_commit_after>
+            <core_abstract_save_after>
+                <observers>
+                    <version_core_abstract_save_after>
+                        <class>version/observer</class>
+                        <method>coreAbstractSaveAfter</method>
+                    </version_core_abstract_save_after>
+                </observers>
+            </core_abstract_save_after>
         </events>
         <layout>
             <updates>

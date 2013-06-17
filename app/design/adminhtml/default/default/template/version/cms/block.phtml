@@ -1,0 +1,78 @@
+<?php
+/**
+ * Created by JetBrains PhpStorm.
+ * User: gordon
+ * Date: 20.05.13
+ * Time: 13:30
+ * To change this template use File | Settings | File Templates.
+ */
+?>
+<script type="text/javascript">
+    var oldVersion = <?php echo $this->getOld() ?>;
+    var newVersion = <?php echo $this->getNew() ?>;
+    var Versions = Class.create({
+        initialize: function() {
+            $$('input.version_radio').each(
+              function(link) {
+                  Event.observe(link, 'click', this.request.bindAsEventListener(this, link));
+              }.bind(this)
+            );
+        },
+
+        request: function(event, link) {
+            var objectId = link.id;
+            if(objectId.substring(0,12) == 'old_version_') {
+                oldVersion = parseInt(objectId.substring(12));
+                $$('input.version_radio').each(
+                    function(input) {
+                        if(input.id.substring(0,12) == 'new_version_') {
+                            var newV = parseInt(input.id.substring(12));
+                            if(oldVersion > newV) {
+                                input.disable();
+                            } else {
+                                input.enable();
+                            }
+                        }
+                    }
+                );
+            }
+            if(objectId.substring(0,12) == 'new_version_') {
+                newVersion = parseInt(objectId.substring(12));
+                $$('input.version_radio').each(
+                    function(input) {
+                        if(input.id.substring(0,12) == 'old_version_') {
+                            var oldV = parseInt(input.id.substring(12));
+                            if(newVersion < oldV) {
+                                input.disable();
+                            } else {
+                                input.enable();
+                            }
+                        }
+                    }
+                );
+            }
+            url = "<?php echo $this->getUrl('adminhtml/version_diff/cmsblock')?>";
+            url += "old/"+oldVersion+"/new/"+newVersion+"/";
+            new Ajax.Request(url, {
+                method: 'get',
+                onSuccess: function(transport) {
+                    if(transport && transport.responseText) {
+                        try{
+                            response = eval('('+transport.responseText+')');
+                        }
+                        catch (e) {
+                            response = {};
+                        }
+                        if(response.table) {
+                            $('version_table').update(response.table);
+                        }
+                    }
+                }.bind(this)}
+            );
+        }
+    });
+
+    Event.observe(window, 'load', function() {
+       versions = new Versions();
+    });
+</script>

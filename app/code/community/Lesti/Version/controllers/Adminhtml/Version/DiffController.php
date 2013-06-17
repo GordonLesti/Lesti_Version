@@ -23,4 +23,18 @@ class Lesti_Version_Adminhtml_Version_DiffController extends Mage_Adminhtml_Cont
         }
     }
 
+    public function cmsblockAction()
+    {
+        if(Mage::app()->getRequest()->isAjax()) {
+            $old = (int) Mage::app()->getRequest()->getParam('old');
+            $new = (int) Mage::app()->getRequest()->getParam('new');
+            $old = Mage::getModel('version/cms_block')->load($old);
+            $new = Mage::getModel('version/cms_block')->load($new);
+            $diff = Mage::helper('version')->renderDiff($old->getContent(), $new->getContent());
+            $result = array();
+            $result['table'] = $diff;
+            $this->getResponse()->setBody(Zend_Json::encode($result));
+        }
+    }
+
 }

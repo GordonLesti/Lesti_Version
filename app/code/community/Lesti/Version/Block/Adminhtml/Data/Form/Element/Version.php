@@ -32,7 +32,7 @@ class Lesti_Version_Block_Adminhtml_Data_Form_Element_Version extends Varien_Dat
         $html .= $this->getChecked() ? 'checked' : '';
         $html .= '/> '.Mage::helper('version')->__('New') . ' ';
         $html .= $this->getVersion()->getCreationTime() . ' <a href="'.
-            Mage::helper('adminhtml')->getUrl('adminhtml/version_restore/cmspage', array('id' => $this->getVersion()->getVersionId())).
+            Mage::helper('adminhtml')->getUrl('adminhtml/version_restore/'.$this->getVersionType(), array('id' => $this->getVersion()->getVersionId())).
             '">' . Mage::helper('version')->__('Restore') . '</a>';
         $html .= $this->getAfterElementHtml();
         return $html;
