@@ -1,0 +1,4 @@
+app/etc/modules/*.xml                                   app/etc/modules/
+app/code/community/Lesti/*                              app/code/community/Lesti/
+app/design/adminhtml/default/default/layout/*           app/design/adminhtml/default/default/layout
+app/design/adminhtml/default/default/template/version   app/design/adminhtml/default/default/template/version
