@@ -6,9 +6,13 @@
  * Time: 21:42
  * To change this template use File | Settings | File Templates.
  */
-class Lesti_Version_Block_Adminhtml_Cms_Block_Edit_Version extends Mage_Adminhtml_Block_Widget_Form
+class Lesti_Version_Block_Adminhtml_Cms_Block_Edit_Version
+    extends Mage_Adminhtml_Block_Widget_Form
+    implements Lesti_Version_Block_Adminhtml_Interface_Adminblock
 {
     protected $_users = array();
+
+    protected $type = 'Block';
 
     public function __construct()
     {
@@ -96,6 +100,15 @@ class Lesti_Version_Block_Adminhtml_Cms_Block_Edit_Version extends Mage_Adminhtm
             $this->_users[$userId] = Mage::getModel('admin/user')->load($userId);
         }
         return $this->_users[$userId];
+    }
+
+    /**
+     * @see Lesti_Version_Block_Adminhtml_Interface_Adminblock
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
 }

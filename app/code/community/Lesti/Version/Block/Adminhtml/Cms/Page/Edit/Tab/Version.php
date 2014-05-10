@@ -12,6 +12,8 @@ class Lesti_Version_Block_Adminhtml_Cms_Page_Edit_Tab_Version
 {
     protected $_users = array();
 
+    protected $type = 'Page';
+
     public function __construct()
     {
         parent::__construct();
@@ -138,5 +140,14 @@ class Lesti_Version_Block_Adminhtml_Cms_Page_Edit_Tab_Version
             ->addFieldToFilter('parent_id', array('eq' => $model->getId()))
             ->setOrder('creation_time', 'desc');
         return $collection;
+    }
+
+    /**
+     * @see Lesti_Version_Block_Adminhtml_Interface_Adminblock
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }
