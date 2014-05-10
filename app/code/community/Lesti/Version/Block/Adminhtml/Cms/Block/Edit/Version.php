@@ -17,66 +17,7 @@ class Lesti_Version_Block_Adminhtml_Cms_Block_Edit_Version extends Mage_Adminhtm
 
     protected function _prepareForm()
     {
-
-        $form = new Varien_Data_Form();
-
-        $form->setHtmlIdPrefix('version_block_');
-
-        $model = Mage::registry('cms_block');
-
-        $layoutFieldset = $form->addFieldset('layout_fieldset', array(
-            'legend' => Mage::helper('cms')->__('Block Versions'),
-            'class'  => 'fieldset-wide'
-        ));
-
-        $layoutFieldset->addType('version', 'Lesti_Version_Block_Adminhtml_Data_Form_Element_Version');
-        $layoutFieldset->addType('version_editor', 'Lesti_Version_Block_Adminhtml_Data_Form_Element_Version_Editor');
-        $layoutFieldset->addType('version_ajax', 'Lesti_Version_Block_Adminhtml_Data_Form_Element_Version_Ajax');
-
-        $collection = $this->_getVersionCollection();
-        $diff = array('', '');
-        $old = 0;
-        $new = 0;
-        $firstItem = $collection->getFirstItem();
-        if(isset($firstItem)) {
-            $content = $firstItem->getContent();
-            $diff = Mage::helper('version')->renderDiff($content, $content);
-            $old = $firstItem->getVersionId();
-            $new = $firstItem->getVersionId();
-        }
-        $layoutFieldset->addField('version_editor', 'version_editor', array(
-            'name'     => 'version_editor',
-            'label'    => '',
-            'diff'     => $diff,
-            'version_type' => 'cms/block'
-        ));
-
-        $layoutFieldset->addField('version_ajax', 'version_ajax', array(
-            'name'     => 'version_ajax',
-            'label'    => '',
-            'old'      => $old,
-            'new'      => $new,
-            'version_type' => 'cms/block'
-        ));
-
-        $i = 0;
-        foreach($collection as $version) {
-            $checked = $i == 0;
-            $layoutFieldset->addField('version_'.$version->getId(), 'version', array(
-                'name'     => 'version_'.$version->getId(),
-                'label'    => $this->_getAdminUser($version->getUserId())->getUsername(),
-                'version'  => $version,
-                'checked'  => $checked,
-                'version_type' => 'cmsblock'
-            ));
-            $i++;
-        }
-
-        Mage::dispatchEvent('adminhtml_cms_block_edit_design_prepare_form', array('form' => $form));
-
-        $this->setForm($form);
-
-        return parent::_prepareForm();
+        return Mage::helper('version/adminhtml')->buildLayout($this);
     }
 
     protected function _getVersionCollection()

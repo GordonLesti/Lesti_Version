@@ -31,7 +31,7 @@ class Lesti_Version_Helper_Data extends Mage_Core_Helper_Abstract
         $content1 = '';
         $content2 = '';
         $diff = $this->diff($array1, $array2);
-        $html = '<tr><td>'.$this->__('Old Version').'</td><td>'.$this->__('New Verison').'</td></tr>';
+        $html = '<tr><td>'.$this->__('Old Version').'</td><td>'.$this->__('New Version').'</td></tr>';
         $tempDiff1 = array();
         $tempDiff2 = array();
         for($i = 0; $i < count($diff[0]); $i++) {
