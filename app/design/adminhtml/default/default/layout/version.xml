@@ -1,4 +1,19 @@
 <?xml version="1.0"?>
+<!--
+/**
+* Lesti_Version
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Open Software License (OSL 3.0)
+* http://opensource.org/licenses/OSL-3.0
+*
+* @package      Lesti_Version
+* @copyright    Copyright (c) 2014 Gordon Lesti (http://www.gordonlesti.com)
+* @author       Gordon Lesti <info@gordonlesti.com>
+* @license      http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
+*/
+-->
 <layout>
     <adminhtml_cms_page_edit>
         <reference name="cms_page_edit_tabs">
