@@ -6,13 +6,13 @@
  * Time: 13:27
  * To change this template use File | Settings | File Templates.
  */
-class Lesti_Version_Block_Adminhtml_Data_Form_Element_Version_Ajax extends Mage_Adminhtml_Block_Template
+class Lesti_Version_Block_Adminhtml_Data_Form_Element_Version_Ajax extends Varien_Data_Form_Element_Abstract
 {
 
     public function __construct($attributes=array())
     {
         parent::__construct($attributes);
-        $this->setTemplate('version/'.$attributes['version_type'].'.phtml');
+        //$this->setTemplate('version/'.$attributes['version_type'].'.phtml');
     }
 
 }

@@ -3,7 +3,7 @@
 class Lesti_Version_Model_Cms_Abstract extends Mage_Core_Model_Abstract
 {
 
-    public function createVersion(Mage_Cms_Model_Abstract $entity)
+    public function createVersion( $entity )
     {
         //$data = $entity->getData();
         $versionData = array();

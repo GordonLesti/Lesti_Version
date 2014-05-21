@@ -11,8 +11,8 @@
 <?php //Zend_Debug::Dump(get_class_methods($this));exit; ?>
 
 <script type="text/javascript">
-    var oldVersion = <?php echo $this->getOld() ? $this->getOld() : ''; ?>;
-    var newVersion = <?php echo $this->getNew() ? $this->getNew() : ''; ?>;
+    var oldVersion = <?php echo $this->getOld() ? $this->getOld() : '""'; ?>;
+    var newVersion = <?php echo $this->getNew() ? $this->getNew() : '""'; ?>;
     var Versions = Class.create({
         initialize: function() {
             $$('input.version_radio').each(

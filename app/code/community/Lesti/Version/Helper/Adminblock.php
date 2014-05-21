@@ -47,7 +47,7 @@ class Lesti_Version_Helper_Adminblock
             'version_type' => 'cms/'.strtolower($type)
         ));
 
-        $layoutFieldset->addField('version_ajax', 'version_ajax', array(
+        $version_ajax = $layoutFieldset->addField('version_ajax', 'version_ajax', array(
             'name'     => 'version_ajax',
             'label'    => '',
             'old'      => $old,
@@ -67,12 +67,17 @@ class Lesti_Version_Helper_Adminblock
             ));
             $i++;
         }
-
+        $layout = $object->getLayout();
+//Zend_debug::dump( $layout->createBlock('core/template')->setTemplate('version/cms/block.phtml')->toHtml() );exit;
         switch ( $type )
         {
-            case 'Block': Mage::dispatchEvent('adminhtml_cms_block_edit_design_prepare_form', array('form' => $form));
+            case 'Block': 
+                $version_ajax->setAfterElementHtml( (string)$layout->createBlock('core/template')->setTemplate('version/cms/block.phtml')->toHtml() );
+                Mage::dispatchEvent('adminhtml_cms_block_edit_design_prepare_form', array('form' => $form));
                 break;
-            case 'Page': Mage::dispatchEvent('adminhtml_cms_page_edit_tab_design_prepare_form', array('form' => $form));
+            case 'Page':
+                $version_ajax->setAfterElementHtml( (string)$layout->createBlock('core/template')->setTemplate('version/cms/page.phtml')->toHtml() );
+                Mage::dispatchEvent('adminhtml_cms_page_edit_tab_design_prepare_form', array('form' => $form));
                 break;
         }
 
