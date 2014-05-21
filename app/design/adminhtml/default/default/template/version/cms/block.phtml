@@ -51,7 +51,7 @@
                     }
                 );
             }
-            url = "<?php echo $this->getUrl('adminhtml/version_diff/cmsblock')?>";
+            url = "<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/version_diff/cmsblock')?>";
             url += "old/"+oldVersion+"/new/"+newVersion+"/";
             new Ajax.Request(url, {
                 method: 'get',

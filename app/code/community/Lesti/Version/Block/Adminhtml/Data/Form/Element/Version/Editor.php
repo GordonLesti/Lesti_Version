@@ -12,8 +12,6 @@ class Lesti_Version_Block_Adminhtml_Data_Form_Element_Version_Editor extends Var
     public function __construct($attributes=array())
     {
         parent::__construct($attributes);
-        $this->setType('version_editor');
-        $this->setTemplate('version/'.$attributes['version_type'].'.phtml');
     }
 
     /**

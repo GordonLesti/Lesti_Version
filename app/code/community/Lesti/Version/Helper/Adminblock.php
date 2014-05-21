@@ -68,7 +68,7 @@ class Lesti_Version_Helper_Adminblock
             $i++;
         }
         $layout = $object->getLayout();
-//Zend_debug::dump( $layout->createBlock('core/template')->setTemplate('version/cms/block.phtml')->toHtml() );exit;
+        
         switch ( $type )
         {
             case 'Block': 

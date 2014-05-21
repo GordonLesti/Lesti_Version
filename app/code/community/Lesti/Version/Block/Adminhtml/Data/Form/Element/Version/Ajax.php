@@ -15,4 +15,10 @@ class Lesti_Version_Block_Adminhtml_Data_Form_Element_Version_Ajax extends Varie
         //$this->setTemplate('version/'.$attributes['version_type'].'.phtml');
     }
 
+    public function getElementHtml()
+    {
+        $html = $this->getAfterElementHtml();
+        return $html;
+    }
+
 }

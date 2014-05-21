@@ -54,7 +54,7 @@
                     }
                 );
             }
-            url = "<?php echo $this->getUrl('adminhtml/version_diff/cmspage')?>";
+            url = "<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/version_diff/cmspage')?>";
             url += "old/"+oldVersion+"/new/"+newVersion+"/";
             new Ajax.Request(url, {
                 method: 'get',
