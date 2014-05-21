@@ -32,21 +32,25 @@ class Lesti_Version_Helper_Adminblock
         $collection = $this->_getVersionCollection(strtolower($type));
 
         $i = 0;
+        $disabled = false;
         foreach($collection as $version) {
             $checked_new = $i == 0;
             $checked_old = $i == 1;
-            if($checked_old)
-            {
-                $secondItem = $version;
-            }
+
             $layoutFieldset->addField('version_'.$version->getId(), 'version', array(
                 'name'     => 'version_'.$version->getId(),
                 'label'    => $this->_getAdminUser($version->getUserId())->getUsername(),
                 'version'  => $version,
                 'checked_old'  => $checked_old,
                 'checked_new'  => $checked_new,
+                'disabled'     => $disabled,
                 'version_type' => 'cms'.strtolower($type)
             ));
+            if($checked_old)
+            {
+                $secondItem = $version;
+                $disabled = true;
+            }
             $i++;
         }
 
