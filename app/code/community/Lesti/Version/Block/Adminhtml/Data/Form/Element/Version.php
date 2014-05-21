@@ -25,11 +25,11 @@ class Lesti_Version_Block_Adminhtml_Data_Form_Element_Version extends Varien_Dat
         $html = $this->getBeforeElementHtml();
         $html .= '<input class="version_radio" id="old_version_'.$this->getVersion()->getVersionId().
             '" type="radio" name="old_version"';
-        $html .= $this->getChecked() ? 'checked' : '';
+        $html .= $this->getCheckedOld() ? 'checked' : '';
         $html .='/> '.Mage::helper('version')->__('Old');
         $html .= ' <input class="version_radio" id="new_version_'.$this->getVersion()->getVersionId().
             '" type="radio" name="new_version" ';
-        $html .= $this->getChecked() ? 'checked' : '';
+        $html .= $this->getCheckedNew() ? 'checked' : '';
         $html .= '/> '.Mage::helper('version')->__('New') . ' ';
         $html .= $this->getVersion()->getCreationTime() . ' <a href="'.
             Mage::helper('adminhtml')->getUrl('adminhtml/version_restore/'.$this->getVersionType(), array('id' => $this->getVersion()->getVersionId())).

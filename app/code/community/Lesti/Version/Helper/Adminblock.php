@@ -30,14 +30,38 @@ class Lesti_Version_Helper_Adminblock
         $layoutFieldset->addType('version_ajax', 'Lesti_Version_Block_Adminhtml_Data_Form_Element_Version_Ajax');
 
         $collection = $this->_getVersionCollection(strtolower($type));
+
+        $i = 0;
+        foreach($collection as $version) {
+            $checked_new = $i == 0;
+            $checked_old = $i == 1;
+            if($checked_old)
+            {
+                $secondItem = $version;
+            }
+            $layoutFieldset->addField('version_'.$version->getId(), 'version', array(
+                'name'     => 'version_'.$version->getId(),
+                'label'    => $this->_getAdminUser($version->getUserId())->getUsername(),
+                'version'  => $version,
+                'checked_old'  => $checked_old,
+                'checked_new'  => $checked_new,
+                'version_type' => 'cms'.strtolower($type)
+            ));
+            $i++;
+        }
+
         $diff = array('', '');
         $old = 0;
         $new = 0;
         $firstItem = $collection->getFirstItem();
+        if(!isset($secondItem)){
+            $secondItem = $firstItem;
+        }
         if(isset($firstItem)) {
-            $content = $firstItem->getContent();
-            $diff = Mage::helper('version')->renderDiff($content, $content);
-            $old = $firstItem->getVersionId();
+            $new_content = $firstItem->getContent();
+            $old_content = $secondItem->getContent();
+            $diff = Mage::helper('version')->renderDiff($old_content, $new_content);
+            $old = $secondItem->getVersionId();
             $new = $firstItem->getVersionId();
         }
         $layoutFieldset->addField('version_editor', 'version_editor', array(
@@ -55,18 +79,7 @@ class Lesti_Version_Helper_Adminblock
             'version_type' => 'cms/'.strtolower($type)
         ));
 
-        $i = 0;
-        foreach($collection as $version) {
-            $checked = $i == 0;
-            $layoutFieldset->addField('version_'.$version->getId(), 'version', array(
-                'name'     => 'version_'.$version->getId(),
-                'label'    => $this->_getAdminUser($version->getUserId())->getUsername(),
-                'version'  => $version,
-                'checked'  => $checked,
-                'version_type' => 'cms'.strtolower($type)
-            ));
-            $i++;
-        }
+
         $layout = $object->getLayout();
         
         switch ( $type )
