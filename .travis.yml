@@ -1,0 +1,11 @@
+language: php
+
+php:
+  - 5.3
+
+install:
+  - composer install --dev --prefer-source
+
+script:
+  - php vendor/bin/phpcs --standard=Zend app/
+  - php vendor/bin/phpmd app/ text codesize,design,unusedcode

@@ -1,0 +1,19 @@
+{
+    "name": "lesti/version",
+    "type": "magento-module",
+    "description": "Version Control for Magento CMS",
+    "homepage": "https://github.com/GordonLesti/Lesti_Version",
+    "authors": [
+        {
+            "name": "Gordon Lesti",
+            "email": "info@gordonlesti.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.23"
+    },
+    "require-dev": {
+        "phpmd/phpmd" : "*",
+        "squizlabs/php_codesniffer": "*"
+    }
+}
