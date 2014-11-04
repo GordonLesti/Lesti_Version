@@ -1,16 +1,14 @@
 <?php
 /**
- * Lesti_Version
+ * Lesti_Version (http:gordonlesti.com/lestiversion)
  *
- * NOTICE OF LICENSE
+ * PHP version 5
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * http://opensource.org/licenses/OSL-3.0
- *
- * @package      Lesti_Version
- * @copyright    Copyright (c) 2014 Gordon Lesti (http://www.gordonlesti.com)
- * @author       Gordon Lesti <info@gordonlesti.com>
- * @license      http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
+ * @link      https://github.com/GordonLesti/Lesti_Version
+ * @package   Lesti_Fpc
+ * @author    Gordon Lesti <info@gordonlesti.com>
+ * @copyright Copyright (c) 2013-2014 Gordon Lesti (http://gordonlesti.com)
+ * @license   http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  */
 
 /**
@@ -38,8 +36,6 @@ class Lesti_Version_Helper_Data extends Mage_Core_Helper_Abstract
             $hash[$sha1] = htmlentities($line);
             $array2[$key] = $sha1;
         }
-        $content1 = '';
-        $content2 = '';
         $diff = $this->diff($array1, $array2);
         $html = '<tr><td>'.$this->__('Old Version').'</td><td>'.$this->__('New Verison').'</td></tr>';
         $tempDiff1 = array();
@@ -190,14 +186,4 @@ class Lesti_Version_Helper_Data extends Mage_Core_Helper_Abstract
 
         return array(array_reverse($out1), array_reverse($out2));
     }
-
-    private function stringToArray($string)
-    {
-        $array = array();
-        for($i = 0; $i < strlen($string); $i++) {
-            $array[] = $string[$i];
-        }
-        return $array;
-    }
-
 }
