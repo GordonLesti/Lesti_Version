@@ -19,6 +19,9 @@
 class Lesti_Version_Block_Adminhtml_Cms_Block_Edit_Version extends
     Mage_Adminhtml_Block_Widget_Form
 {
+    /**
+     * @var array
+     */
     protected $_users = array();
 
     public function __construct()
@@ -110,6 +113,10 @@ class Lesti_Version_Block_Adminhtml_Cms_Block_Edit_Version extends
         return $collection;
     }
 
+    /**
+     * @param $userId
+     * @return mixed
+     */
     protected function _getAdminUser($userId)
     {
         $userId = (int) $userId;
@@ -119,5 +126,4 @@ class Lesti_Version_Block_Adminhtml_Cms_Block_Edit_Version extends
         }
         return $this->_users[$userId];
     }
-
 }

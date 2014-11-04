@@ -16,7 +16,9 @@
  */
 class Lesti_Version_Model_Observer
 {
-
+    /**
+     * @param $observer
+     */
     public function cmsPageSaveCommitAfter($observer)
     {
         $page = $observer->getEvent()->getObject();
@@ -24,13 +26,15 @@ class Lesti_Version_Model_Observer
         $version->createVersion($page);
     }
 
+    /**
+     * @param $observer
+     */
     public function coreAbstractSaveAfter($observer)
     {
         $object = $observer->getEvent()->getObject();
-        if($object instanceof Mage_Cms_Model_Block) {
+        if ($object instanceof Mage_Cms_Model_Block) {
             $version = Mage::getModel('version/cms_block');
             $version->createVersion($object);
         }
     }
-
 }

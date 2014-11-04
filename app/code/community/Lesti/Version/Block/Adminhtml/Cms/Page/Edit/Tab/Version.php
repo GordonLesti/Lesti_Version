@@ -18,6 +18,9 @@ class Lesti_Version_Block_Adminhtml_Cms_Page_Edit_Tab_Version
     extends Mage_Adminhtml_Block_Widget_Form
     implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    /**
+     * @var array
+     */
     protected $_users = array();
 
     public function __construct()
@@ -89,6 +92,10 @@ class Lesti_Version_Block_Adminhtml_Cms_Page_Edit_Tab_Version
         return parent::_prepareForm();
     }
 
+    /**
+     * @param $userId
+     * @return mixed
+     */
     protected function _getAdminUser($userId)
     {
         $userId = (int) $userId;
@@ -138,6 +145,9 @@ class Lesti_Version_Block_Adminhtml_Cms_Page_Edit_Tab_Version
         return false;
     }
 
+    /**
+     * @return mixed
+     */
     protected function _getVersionCollection()
     {
         /** @var $model Mage_Cms_Model_Page */

@@ -14,51 +14,66 @@
 /**
  * Class Lesti_Version_Adminhtml_Version_RestoreController
  */
-class Lesti_Version_Adminhtml_Version_RestoreController extends Mage_Adminhtml_Controller_Action
+class Lesti_Version_Adminhtml_Version_RestoreController extends
+    Mage_Adminhtml_Controller_Action
 {
-
+    /**
+     * @throws Exception
+     */
     public function cmspageAction()
     {
         $id = Mage::app()->getRequest()->getParam('id');
-        if($id) {
+        if ($id) {
             $id = (int) $id;
             $version = Mage::getModel('version/cms_page')->load($id);
-            if($version->getId()) {
+            if ($version->getId()) {
                 $pageId = (int) $version->getParentId();
-                if($pageId) {
+                if ($pageId) {
                     $page = Mage::getModel('cms/page')->load($pageId);
-                    if($page->getId()) {
+                    if ($page->getId()) {
                         $page->setContent($version->getContent());
                         $page->save();
                         Mage::getSingleton('adminhtml/session')->addSuccess(
-                            Mage::helper('version')->__('Version has been restored.')
+                            Mage::helper('version')
+                                ->__('Version has been restored.')
                         );
-                        $this->_redirect('adminhtml/cms_page/edit', array('page_id' => $pageId));
+                        $this->_redirect(
+                            'adminhtml/cms_page/edit',
+                            array('page_id' => $pageId)
+                        );
                         return;
                     }
                 }
             }
         }
+
         $this->_redirect('adminhtml/cms_page/edit');
     }
 
+    /**
+     * @throws Exception
+     */
     public function cmsblockAction()
     {
         $id = Mage::app()->getRequest()->getParam('id');
-        if($id) {
+        if ($id) {
             $id = (int) $id;
             $version = Mage::getModel('version/cms_block')->load($id);
-            if($version->getId()) {
+            if ($version->getId()) {
                 $blockId = (int) $version->getParentId();
-                if($blockId) {
+                if ($blockId) {
                     $block = Mage::getModel('cms/block')->load($blockId);
-                    if($block->getId()) {
+                    if ($block->getId()) {
                         $block->setContent($version->getContent());
                         $block->save();
                         Mage::getSingleton('adminhtml/session')->addSuccess(
-                            Mage::helper('version')->__('Version has been restored.')
+                            Mage::helper('version')
+                                ->__('Version has been restored.')
                         );
-                        $this->_redirect('adminhtml/cms_block/edit', array('block_id' => $blockId));
+                        $this->_redirect(
+                            'adminhtml/cms_block/edit',
+                            array('block_id' => $blockId)
+                        );
                         return;
                     }
                 }
