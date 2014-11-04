@@ -37,55 +37,82 @@ class Lesti_Version_Block_Adminhtml_Cms_Page_Edit_Tab_Version
 
         $model = Mage::registry('cms_page');
 
-        $layoutFieldset = $form->addFieldset('layout_fieldset', array(
-            'legend' => Mage::helper('cms')->__('Page Versions'),
-            'class'  => 'fieldset-wide'
-        ));
+        $layoutFieldset = $form->addFieldset(
+            'layout_fieldset',
+            array(
+                'legend' => Mage::helper('cms')->__('Page Versions'),
+                'class'  => 'fieldset-wide',
+            )
+        );
 
-        $layoutFieldset->addType('version', 'Lesti_Version_Block_Adminhtml_Data_Form_Element_Version');
-        $layoutFieldset->addType('version_editor', 'Lesti_Version_Block_Adminhtml_Data_Form_Element_Version_Editor');
-        $layoutFieldset->addType('version_ajax', 'Lesti_Version_Block_Adminhtml_Data_Form_Element_Version_Ajax');
+        $layoutFieldset->addType(
+            'version',
+            'Lesti_Version_Block_Adminhtml_Data_Form_Element_Version'
+        );
+        $layoutFieldset->addType(
+            'version_editor',
+            'Lesti_Version_Block_Adminhtml_Data_Form_Element_Version_Editor'
+        );
+        $layoutFieldset->addType(
+            'version_ajax',
+            'Lesti_Version_Block_Adminhtml_Data_Form_Element_Version_Ajax'
+        );
 
         $collection = $this->_getVersionCollection();
         $diff = array('', '');
         $old = 0;
         $new = 0;
         $firstItem = $collection->getFirstItem();
-        if(isset($firstItem)) {
+        if (isset($firstItem)) {
             $content = $firstItem->getContent();
             $diff = Mage::helper('version')->renderDiff($content, $content);
             $old = $firstItem->getVersionId();
             $new = $firstItem->getVersionId();
         }
-        $layoutFieldset->addField('version_editor', 'version_editor', array(
-            'name'     => 'version_editor',
-            'label'    => '',
-            'diff'     => $diff,
-            'version_type' => 'cms/page'
-        ));
+        $layoutFieldset->addField(
+            'version_editor',
+            'version_editor',
+            array(
+                'name' => 'version_editor',
+                'label' => '',
+                'diff' => $diff,
+                'version_type' => 'cms/page'
+            )
+        );
 
-        $layoutFieldset->addField('version_ajax', 'version_ajax', array(
-            'name'     => 'version_ajax',
-            'label'    => '',
-            'old'      => $old,
-            'new'      => $new,
-            'version_type' => 'cms/page'
-        ));
+        $layoutFieldset->addField(
+            'version_ajax',
+            'version_ajax',
+            array(
+                'name' => 'version_ajax',
+                'label' => '',
+                'old' => $old,
+                'new' => $new,
+                'version_type' => 'cms/page',
+            )
+        );
 
         $i = 0;
-        foreach($collection as $version) {
+        foreach ($collection as $version) {
             $checked = $i == 0;
-            $layoutFieldset->addField('version_'.$version->getId(), 'version', array(
-                'name'     => 'version_'.$version->getId(),
-                'label'    => $this->_getAdminUser($version->getUserId())->getUsername(),
-                'version'  => $version,
-                'checked'  => $checked,
-                'version_type' => 'cmspage'
-            ));
+            $layoutFieldset->addField(
+                'version_'.$version->getId(),
+                'version',
+                array(
+                    'name' => 'version_'.$version->getId(),
+                    'label' => $this->_getAdminUser($version->getUserId())->getUsername(),
+                    'version' => $version,
+                    'checked' => $checked,
+                    'version_type' => 'cmspage',
+                )
+            );
             $i++;
         }
 
-        Mage::dispatchEvent('adminhtml_cms_page_edit_tab_design_prepare_form', array('form' => $form));
+        Mage::dispatchEvent(
+            'adminhtml_cms_page_edit_tab_design_prepare_form',
+            array('form' => $form)
+        );
 
         $this->setForm($form);
 
