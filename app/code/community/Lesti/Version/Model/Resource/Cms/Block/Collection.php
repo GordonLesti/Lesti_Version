@@ -14,16 +14,14 @@
 /**
  * Class Lesti_Version_Model_Resource_Cms_Block_Collection
  */
-class Lesti_Version_Model_Resource_Cms_Block_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
+class Lesti_Version_Model_Resource_Cms_Block_Collection extends
+    Mage_Core_Model_Resource_Db_Collection_Abstract
 {
-
     /**
      * Define resource model
-     *
      */
     protected function _construct()
     {
         $this->_init('version/cms_block');
     }
-
 }

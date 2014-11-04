@@ -14,9 +14,12 @@
 /**
  * Class Lesti_Version_Block_Adminhtml_Data_Form_Element_Version_Editor
  */
-class Lesti_Version_Block_Adminhtml_Data_Form_Element_Version_Editor extends Varien_Data_Form_Element_Abstract
+class Lesti_Version_Block_Adminhtml_Data_Form_Element_Version_Editor extends
+    Varien_Data_Form_Element_Abstract
 {
-
+    /**
+     * @param array $attributes
+     */
     public function __construct($attributes=array())
     {
         parent::__construct($attributes);
@@ -38,5 +41,4 @@ class Lesti_Version_Block_Adminhtml_Data_Form_Element_Version_Editor extends Var
         $html .= $this->getAfterElementHtml();
         return $html;
     }
-
 }

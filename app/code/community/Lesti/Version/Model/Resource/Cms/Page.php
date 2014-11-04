@@ -14,16 +14,14 @@
 /**
  * Class Lesti_Version_Model_Resource_Cms_Page
  */
-class Lesti_Version_Model_Resource_Cms_Page extends Mage_Core_Model_Resource_Db_Abstract
+class Lesti_Version_Model_Resource_Cms_Page extends
+    Mage_Core_Model_Resource_Db_Abstract
 {
-
     /**
      * Initialize resource model
-     *
      */
     protected function _construct()
     {
         $this->_init('version/cms_page', 'version_id');
     }
-
 }

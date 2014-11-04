@@ -16,9 +16,13 @@
  */
 class Lesti_Version_Model_Cms_Page extends Mage_Core_Model_Abstract
 {
-
     const CACHE_TAG              = 'cms_page';
+
+    /**
+     * @var string
+     */
     protected $_cacheTag         = 'cms_page';
+
     /**
      * Prefix of model events names
      *
@@ -28,13 +32,17 @@ class Lesti_Version_Model_Cms_Page extends Mage_Core_Model_Abstract
 
     /**
      * Initialize resource model
-     *
      */
     protected function _construct()
     {
         $this->_init('version/cms_page');
     }
 
+    /**
+     * @param Mage_Cms_Model_Page $page
+     * @return $this
+     * @throws Exception
+     */
     public function createVersion(Mage_Cms_Model_Page $page)
     {
         $data = $page->getData();
@@ -42,10 +50,10 @@ class Lesti_Version_Model_Cms_Page extends Mage_Core_Model_Abstract
         $versionData['content'] = $data['content'];
         $versionData['parent_id'] = $data['page_id'];
         $versionData['creation_time'] = $data['update_time'];
-        $versionData['user_id'] = Mage::getSingleton('admin/session')->getUser()->getId();
+        $versionData['user_id'] = Mage::getSingleton('admin/session')
+            ->getUser()->getId();
         $this->setData($versionData);
         $this->save();
         return $this;
     }
-
 }
