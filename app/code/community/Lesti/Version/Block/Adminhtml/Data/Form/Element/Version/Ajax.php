@@ -16,7 +16,7 @@
 /**
  * Class Lesti_Version_Block_Adminhtml_Data_Form_Element_Version_Ajax
  */
-class Lesti_Version_Block_Adminhtml_Data_Form_Element_Version_Ajax extends Mage_Adminhtml_Block_Template
+class Lesti_Version_Block_Adminhtml_Data_Form_Element_Version_Ajax extends Varien_Data_Form_Element_Abstract
 {
 
     public function __construct($attributes=array())
