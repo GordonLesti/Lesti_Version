@@ -1,4 +1,4 @@
-app/code/community/Lesti/Version app/code/community/Lesti/Version
-app/design/adminhtml/default/default/layout/version.xml app/design/adminhtml/default/default/layout/version.xml
-app/design/adminhtml/default/default/template/version app/design/adminhtml/default/default/template/version
-app/etc/modules/Lesti_Version.xml app/etc/modules/Lesti_Version.xml
+app/etc/modules/*.xml                                   app/etc/modules/
+app/code/community/Lesti/*                              app/code/community/Lesti/
+app/design/adminhtml/default/default/layout/*           app/design/adminhtml/default/default/layout
+app/design/adminhtml/default/default/template/version   app/design/adminhtml/default/default/template/version
