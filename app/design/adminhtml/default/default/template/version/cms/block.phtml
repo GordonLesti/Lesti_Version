@@ -14,8 +14,8 @@
  */
 ?>
 <script type="text/javascript">
-    var oldVersion = '<?php echo $this->getOld() ?>';
-    var newVersion = '<?php echo $this->getNew() ?>';
+    var oldVersion = <?php echo $this->getOld() ? $this->getOld() : '""'; ?>;
+    var newVersion = <?php echo $this->getNew() ? $this->getNew() : '""'; ?>;
     var Versions = Class.create({
         initialize: function() {
             $$('input.version_radio').each(
@@ -57,7 +57,7 @@
                     }
                 );
             }
-            url = "<?php echo $this->getUrl('adminhtml/version_diff/cmsblock')?>";
+            url = "<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/version_diff/cmsblock')?>";
             url += "old/"+oldVersion+"/new/"+newVersion+"/";
             new Ajax.Request(url, {
                 method: 'get',
