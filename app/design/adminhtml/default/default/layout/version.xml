@@ -17,13 +17,20 @@
 <layout>
     <adminhtml_cms_page_edit>
         <reference name="cms_page_edit_tabs">
-            <block type="version/adminhtml_cms_page_edit_tab_version" name="cms_page_edit_tab_version" />
-            <action method="addTab"><name>version_section</name><block>cms_page_edit_tab_version</block></action>
+            <block type="version/adminhtml_cms_page_edit_tab_version" name="cms_page_edit_tab_version">
+                <block type="adminhtml/template" template="version/cms/page.phtml" name="form_after" alias="form_after"/>
+            </block>
+            <action method="addTab">
+                <name>version_section</name>
+                <block>cms_page_edit_tab_version</block>
+            </action>
         </reference>
     </adminhtml_cms_page_edit>
     <adminhtml_cms_block_edit>
         <reference name="content">
-            <block type="version/adminhtml_cms_block_edit_version" name="cms_block_edit_version"></block>
+            <block type="version/adminhtml_cms_block_edit_version" name="cms_block_edit_version">
+                <block type="adminhtml/template" template="version/cms/block.phtml" name="form_after" alias="form_after"/>
+            </block>
         </reference>
     </adminhtml_cms_block_edit>
 </layout>
